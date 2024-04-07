@@ -1,8 +1,12 @@
 package lol.niox.banenchantmenttrade;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.Merchant;
+import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.event.entity.VillagerAcquireTradeEvent;
+
+import java.util.List;
 
 public final class BanEnchantmentTrade extends JavaPlugin implements org.bukkit.event.Listener {
 
@@ -15,10 +19,16 @@ public final class BanEnchantmentTrade extends JavaPlugin implements org.bukkit.
 
 
     @EventHandler
-    public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
-        System.out.println(event.getRecipe().getResult().getType());
-        if (event.getRecipe().getResult().getType().toString().contains("ENCHANTED")) {
-            event.setCancelled(true);
+    public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
+        if (event.getRightClicked() instanceof Merchant) {
+            Merchant merchant = (Merchant) event.getRightClicked();
+            List<MerchantRecipe> recipes = merchant.getRecipes();
+            for (MerchantRecipe recipe : recipes) {
+                System.out.println(recipe.getResult().getType());
+                if (recipe.getResult().getType().toString().contains("ENCHANTED_BOOK")) {
+                    recipe.setMaxUses(0);
+                }
+            }
         }
     }
 
