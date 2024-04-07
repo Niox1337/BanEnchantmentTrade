@@ -1,0 +1,4 @@
+name: BanEnchantmentTrade
+version: '${project.version}'
+main: lol.niox.banenchantmenttrade.BanEnchantmentTrade
+api-version: '1.20'
