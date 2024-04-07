@@ -24,7 +24,6 @@ public final class BanEnchantmentTrade extends JavaPlugin implements org.bukkit.
             Merchant merchant = (Merchant) event.getRightClicked();
             List<MerchantRecipe> recipes = merchant.getRecipes();
             for (MerchantRecipe recipe : recipes) {
-                System.out.println(recipe.getResult().getType());
                 if (recipe.getResult().getType().toString().contains("ENCHANTED_BOOK")) {
                     recipe.setMaxUses(0);
                 }
